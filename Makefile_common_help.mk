@@ -1,5 +1,14 @@
+# Sample usage :
+#
+# Makefile_common_help.mk:
+#	@echo "retrieving latest version of $@"
+#	curl -s https://raw.githubusercontent.com/nbossard/makefile_tools/refs/heads/main/$@ -o $@
+#
+# include Makefile_common_help.mk
+
 .PHONY: help check_health
 
+# Will display a list of main targets with a quick description.
 help:
 	@echo "Usage : make"
 	@echo "$(MAKEFILE_LIST)"

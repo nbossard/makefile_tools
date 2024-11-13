@@ -1,4 +1,9 @@
 #
+# This functions are aimed to extract lines starting by :
+# // puml:
+# And generate a valid plantuml source files with them.
+# So that we can mix source code and plantuml activity diagram.
+#
 # This file is aimed to be used in multiple projects.
 # You can retrieve latest version at https://github.com/nbossard/makefile_tools/Makefile_common_puml.mk
 #

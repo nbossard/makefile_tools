@@ -1,3 +1,21 @@
+# Improve readability of makefile log execution by adding clearly visible colored section markers easily.
+#
+# This file is aimed to be used in multiple projects.
+# You can retrieve latest version at https://github.com/nbossard/makefile_tools/Makefile_common_puml.mk
+#
+# Sample usage :
+#
+# Makefile_common_prettier.mk:
+#	@echo "retrieving latest version of $@"
+#	curl -s https://raw.githubusercontent.com/nbossard/makefile_tools/refs/heads/main/$@ -o $@
+#
+# include Makefile_common_prettier.mk
+#
+# Usage :
+# 	$(call .cecho,"Cleaning all temporary files")
+
+# }}}
+
 # -------------------------- improved display ------------------
 # {{{
 
@@ -20,8 +38,5 @@
 # bash version without @
 .cechoerrorbash = echo "$(.ECHO_COLOR_ERROR)❌❌❌ $(1)$(.NO_COLOR)"
 
-# Usage :
-# 	$(call .cecho,"Cleaning all temporary files")
 
-# }}}
 
