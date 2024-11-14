@@ -40,13 +40,15 @@ define puml_extract_lines
 	@grep -E '^\t*// puml.?:' $(@_source_file) | sed 's/^.*\/\/ puml: //' > $(@_target_file)
 endef
 
-# private function
+# optional parameter 3 : title on top of diagram
 define puml_add_wrapper
 	$(eval @_source_file := $(1))
 	$(eval @_target_file := $(2))
+	$(eval @_title := $(3))
 	@echo "Adding wrappers."
 	@echo "@startuml" > $(@_target_file)
 	@echo "' ⚠️ ⚠️ ⚠️ DO NOT EDIT, generated from go source code, see makefile." >> $(@_target_file)
+	@if [ ! -z "$(@_title)" ]; then echo "title $(@_title)" >> $(@_target_file); fi
 	@echo "start" >> $(@_target_file)
 	@cat $(@_source_file) >> $(@_target_file)
 	@echo "stop" >> $(@_target_file)
