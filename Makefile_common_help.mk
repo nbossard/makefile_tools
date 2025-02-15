@@ -12,7 +12,7 @@
 help:
 	@echo "Usage : make"
 	@echo "$(MAKEFILE_LIST)"
-	@egrep -h '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "    \033[36m%-20s\033[0m %s\n", $$1, $$2}'
+	@awk '/^[a-zA-Z_-]+:/ {if (line ~ /##/) print line; line=$$0; next} /^ *##/ {line = line " " $$0} END {if (line ~ /##/) print line}' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "    \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 	@printf "\n"
 
 check_health: ## Checks programs used by makefile are available
