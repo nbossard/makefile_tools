@@ -21,9 +21,7 @@
 # 	$(call puml_add_wrapper,taggageuser/tmp/taggage_reordered.puml,taggageuser/taggage.puml)
 # 	plantuml taggageuser/taggage.puml -tpng
 
-
-
-# private function
+# private function that mixes content in random order
 define puml_reorder_content
 	$(eval @_source_file := $(1))
 	$(eval @_target_file := $(2))
@@ -54,5 +52,3 @@ define puml_add_wrapper
 	@echo "stop" >> $(@_target_file)
 	@echo "@enduml" >> $(@_target_file)
 endef
-
-

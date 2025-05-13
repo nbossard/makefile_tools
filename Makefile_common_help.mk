@@ -25,9 +25,7 @@ check_health: ## Checks programs used by makefile are available
 	@if command -v docker-compose >/dev/null 2>&1; then echo "✅ docker-compose is installed"; else echo "❌ docker-compose is not installed"; fi
 	$(call .cechodark,"🏁 Finished")
 
-
 # Returns true if the stem is a non-empty
 # environment variable, or else raises an error.
 guard-%:
 	@#$(or ${$*}, $(error $* is not set))
-
