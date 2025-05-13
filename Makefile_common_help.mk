@@ -6,14 +6,13 @@
 #
 # include Makefile_common_help.mk
 
-.PHONY: help check_health
 
-# Will display a list of main targets with a quick description.
-help:
-	@echo "Usage : make"
-	@echo "$(MAKEFILE_LIST)"
-	@# Extract lines with targets and their comments, then format with colors
-	@# supported target names : "help:" "check_health:"  "taggage-user-mada.png:"
+# extract from provided files list lines with double ## markers
+# like :
+# check_health: ## Checks programs used by makefile are available
+define extract_help_lines
+	$(eval @_files_to_consider := $(1))
+
 	@awk '/^[a-zA-Z_\-\.]+:/ { \
 		if (line ~ /##/) print line; \
 		line=$$0; \
@@ -24,10 +23,25 @@ help:
 	} \
 	END { \
 		if (line ~ /##/) print line; \
-	}' Makefile | \
+	}' $(@_files_to_consider)
+endef
+
+# To colorise output of extract_help_lines
+define colorise_lines
 	awk 'BEGIN {FS = ":.*?## "}; { \
 		printf "    \033[36m%-20s\033[0m %s\n", $$1, $$2; \
 	}'
+endef
+
+.PHONY: help check_health
+
+# Will display a list of main targets with a quick description.
+help:
+	@echo "Usage : make"
+	@echo "$(MAKEFILE_LIST)"
+	@# Extract lines with targets and their comments, then format with colors
+	@# supported target names : "help:" "check_health:"  "taggage-user-mada.png:"
+	$(call extract_help_lines, $(MAKEFILE_LIST))| $(call colorise_lines)
 	@printf "\n"
 
 check_health: ## Checks programs used by makefile are available
